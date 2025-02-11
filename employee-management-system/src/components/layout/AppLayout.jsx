@@ -1,33 +1,38 @@
 // import { CssBaseline, Divider, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React, { useState } from "react";
+import Rightbar from "../Rightbar";
+import Feed from "../Feed";
+import Navbar from "../Navbar";
+import Sidebar from "../Sidebar";
 // import Sidebar from "../Sidebar/Sidebar";
 // import Header from "../Header/Header";
 
-const AppAppLayout = () => {
-  // const [open, setOpen] = useState(true);
+const AppAppLayout = ({ children }) => {
+  const [open, setOpen] = useState(true);
 
-  // const handleDrawerToggle = () => {
-  //   setOpen(!open);
-  // };
+  const handleDrawerToggle = () => {
+    setOpen(!open);
+  };
   return (
-    <div>
-      {/* <CssBaseline />
-      <Header onDrawerToggle={handleDrawerToggle} open={open} />
-      <Sidebar open={open} setOpen={setOpen} />
+    // <Box className="flex">
+    //   <Sidebar />
+    //   <div className="flex-1">
+    //     <Navbar open={open} />
+    //     <main className="p-4">{children}</main>
+    //   </div>
+    // </Box>
+    <Box>
+      <Navbar open={open} />
+      <Stack direction="row" spacing={2} justifyContent="space-between">
+        <Sidebar open={open} setOpen={setOpen} />
+        <Box bgcolor="yellow" flex={6} p={6}>
+          <main> {children}</main>
+        </Box>
 
-      <footer
-        style={{
-          textAlign: "center",
-          padding: "10px",
-          position: "absolute",
-          bottom: "0",
-          width: "100%",
-        }}
-      >
-        <Divider />
-        <Typography variant="body2">My Footer Content</Typography>
-      </footer> */}
-    </div>
+        {/* <Rightbar /> */}
+      </Stack>
+    </Box>
   );
 };
 
