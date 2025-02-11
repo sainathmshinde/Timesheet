@@ -1,7 +1,13 @@
 import React from "react";
+import WithLayout from "../../components/layout/WithLayout";
 
 const User = () => {
-  return <div>User</div>;
+  return (
+    <div>
+      User Component
+      <p>User Details</p>
+    </div>
+  );
 };
 
-export default User;
+export default WithLayout(User);
