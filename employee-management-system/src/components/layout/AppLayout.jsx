@@ -22,11 +22,16 @@ const AppAppLayout = ({ children }) => {
     //     <main className="p-4">{children}</main>
     //   </div>
     // </Box>
-    <Box>
+    <Box sx={{ overflow: "hidden" }}>
       <Navbar open={open} />
       <Stack direction="row" spacing={2} justifyContent="space-between">
         <Sidebar open={open} setOpen={setOpen} />
-        <Box bgcolor="yellow" flex={6} p={6}>
+        <Box
+          bgcolor=""
+          flex={6}
+          p={6}
+          sx={{ width: "100%", overflow: "hidden" }}
+        >
           <main> {children}</main>
         </Box>
 

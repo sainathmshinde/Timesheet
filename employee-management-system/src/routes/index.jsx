@@ -1,12 +1,13 @@
 import Login from "../pages/Login";
 import About from "../pages/About/About";
 import User from "../pages/User/User";
+import Role from "../pages/RoleCreation/Role";
 
 const routes = [
   {
     path: "/",
     exact: true,
-    // component: <Login />,
+    component: <About />,
   },
   {
     path: "/login",
@@ -22,6 +23,11 @@ const routes = [
     exact: true,
     path: "/user",
     component: <User />,
+  },
+  {
+    exact: true,
+    path: "/roles",
+    component: <Role />,
   },
 ];
 

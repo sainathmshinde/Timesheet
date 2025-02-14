@@ -69,6 +69,12 @@ const Sidebar = ({ open, setOpen }) => {
           icon: <Group />,
           path: "/about",
         },
+        {
+          id: "role",
+          title: "Roles",
+          icon: <Group />,
+          path: "/roles",
+        },
       ],
     },
     {
@@ -150,7 +156,7 @@ const Sidebar = ({ open, setOpen }) => {
   };
 
   return (
-    <Box flex={1} p={2}>
+    <Box flex={1} p={2} sx={{ display: { sx: "none", sm: "block" } }}>
       {/* Sidebar top: Menu Icon Button */}
 
       {/* Menu Items */}
