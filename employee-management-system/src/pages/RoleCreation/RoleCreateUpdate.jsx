@@ -10,6 +10,9 @@ import {
 import WithLayout from "../../components/layout/WithLayout";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import MultiSelectDropdown from "../../UI/MultiSelect";
+
+const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
 
 const RoleCreateUpdate = () => {
   const [roleData, setRoleData] = useState({
@@ -19,6 +22,7 @@ const RoleCreateUpdate = () => {
     roleId: "",
     statuss: [],
   });
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   const navigate = useNavigate();
   const { roleId } = useParams();
@@ -129,6 +133,12 @@ const RoleCreateUpdate = () => {
             <MenuItem value="ACTIVE">Active</MenuItem>
             <MenuItem value="INACTIVE">Inactive</MenuItem>
           </TextField>
+          <MultiSelectDropdown
+            label="Select Status"
+            options={options}
+            selectedValues={selectedOptions}
+            setSelectedValues={setSelectedOptions}
+          />
           <Button
             variant="contained"
             color="primary"

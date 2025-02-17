@@ -1,12 +1,8 @@
 // import { CssBaseline, Divider, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/material";
 import React, { useState } from "react";
-import Rightbar from "../Rightbar";
-import Feed from "../Feed";
-import Navbar from "../Navbar";
-import Sidebar from "../Sidebar";
-// import Sidebar from "../Sidebar/Sidebar";
-// import Header from "../Header/Header";
+import Navbar from "../navbar/Navbar";
+import Sidebar from "../Sidebar/Sidebar";
 
 const AppAppLayout = ({ children }) => {
   const [open, setOpen] = useState(true);
