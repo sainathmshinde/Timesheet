@@ -12,71 +12,32 @@ import TableRow from "@mui/material/TableRow";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import RoleTable from "../../datatables/RoleTable";
+import CustomButton from "../../components/Button/CustomButton";
+import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
 
 export const Role = () => {
-  const [roleData, setRoleData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const fetchRoles = async () => {
-    setLoading(true);
-    setError("");
-
-    try {
-      const response = await axios.get(
-        "http://localhost:9090/role/v1?pageNo=1&recordsPerPage=1000"
-      );
-
-      if (response.data && response.data.data.roleListResponseDtos) {
-        setRoleData(response.data.data.roleListResponseDtos);
-      } else {
-        setError("Invalid API response structure.");
-      }
-    } catch (err) {
-      setError("Error fetching roles: " + err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchRoles();
-  }, []);
-
-  const columns = [
-    { id: "roleId", label: "Role ID", minWidth: 100 },
-    { id: "roleName", label: "Role Name", minWidth: 200 },
-    { id: "description", label: "Description", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-    { id: "status", label: "status", minWidth: 300 },
-  ];
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
+  const navigate = useNavigate();
+  const handelClick = () => {
+    navigate("/createUpdate");
   };
 
   return (
     <div sx={{ width: "100%", overflow: "hidden" }}>
-      <div>
-        <h1>Roles</h1>
-      </div>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Box>
+          <h1>Roles</h1>
+        </Box>
+        <Box>
+          <CustomButton label="Create Role" onClick={handelClick} />
+        </Box>
+      </Box>
       {/* <Paper sx={{ width: "100%", overflow: "hidden" }}>
         {loading && (
           <div
@@ -131,7 +92,14 @@ export const Role = () => {
         )}
       </Paper> */}
       <div>
-        <RoleTable />
+        <RoleTable
+          sx={{
+            flex: "1 1 auto",
+            height: "calc(100vh - 140px)",
+            maxHeight: "calc(100vh - 140px)",
+            overflow: "auto",
+          }}
+        />
       </div>
     </div>
   );

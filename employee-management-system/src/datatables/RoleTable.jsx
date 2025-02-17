@@ -10,6 +10,9 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import EditIcon from "../components/icons/EditIcon";
 
 export default function RoleTable() {
   const [roleData, setRoleData] = useState([]);
@@ -17,6 +20,8 @@ export default function RoleTable() {
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const navigate = useNavigate();
 
   const fetchRoles = async () => {
     setLoading(true);
@@ -47,9 +52,10 @@ export default function RoleTable() {
 
   const columns = [
     { id: "roleId", label: "Role ID", minWidth: 100 },
-    { id: "roleName", label: "Role Name", minWidth: 200 },
-    { id: "description", label: "Description", minWidth: 300 },
-    { id: "status", label: "Status", minWidth: 300 },
+    { id: "roleName", label: "Role Name", minWidth: 100 },
+    { id: "description", label: "Description", minWidth: 100 },
+    { id: "status", label: "Status", minWidth: 100 },
+    { id: "action", label: "Action", minWidth: 100 },
   ];
 
   const handleChangePage = (event, newPage) => {
@@ -96,7 +102,17 @@ export default function RoleTable() {
                       <TableRow hover key={row.roleId}>
                         {columns.map((column) => (
                           <TableCell key={column.id}>
-                            {row[column.id] || "N/A"}
+                            {column.id === "action" ? (
+                              <Button
+                                onClick={() =>
+                                  navigate(`/createUpdate/${row.roleId}`)
+                                }
+                              >
+                                <EditIcon />
+                              </Button>
+                            ) : (
+                              row[column.id] || "N/A"
+                            )}
                           </TableCell>
                         ))}
                       </TableRow>

@@ -26,6 +26,8 @@ import {
 } from "@mui/icons-material";
 import { produce } from "immer";
 import { useNavigate } from "react-router-dom";
+import RolesIcon from "./icons/RolesIcon";
+import { Projects } from "../pages/Projects/Projects";
 
 const Sidebar = ({ open, setOpen }) => {
   const [submenuStates, setSubmenuStates] = useState({});
@@ -72,8 +74,14 @@ const Sidebar = ({ open, setOpen }) => {
         {
           id: "role",
           title: "Roles",
-          icon: <Group />,
+          icon: <RolesIcon />,
           path: "/roles",
+        },
+        {
+          id: "projects",
+          title: "Projects",
+          icon: <Group />,
+          path: "/projects",
         },
       ],
     },
