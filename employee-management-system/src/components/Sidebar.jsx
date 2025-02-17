@@ -156,13 +156,12 @@ const Sidebar = ({ open, setOpen }) => {
   };
 
   return (
-    <Box flex={1} p={2} sx={{ display: { sx: "none", sm: "block" } }}>
-      {/* Sidebar top: Menu Icon Button */}
-
-      {/* Menu Items */}
-      <Box sx={{ overflow: "auto" }}>
-        <List>{menuItems.map(renderMenuItem)}</List>
-      </Box>
+    <Box
+      flex={1}
+      // p={2}
+      sx={{ overflow: "auto", display: { xs: "none", sm: "block" } }}
+    >
+      <List>{menuItems.map(renderMenuItem)}</List>
     </Box>
   );
 };

@@ -15,16 +15,9 @@ const AppAppLayout = ({ children }) => {
     setOpen(!open);
   };
   return (
-    // <Box className="flex">
-    //   <Sidebar />
-    //   <div className="flex-1">
-    //     <Navbar open={open} />
-    //     <main className="p-4">{children}</main>
-    //   </div>
-    // </Box>
-    <Box sx={{ overflow: "hidden" }}>
+    <Box>
       <Navbar open={open} />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
+      <Stack direction="row" spacing={0} justifyContent="space-between">
         <Sidebar open={open} setOpen={setOpen} />
         <Box
           bgcolor=""
