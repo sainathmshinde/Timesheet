@@ -75,6 +75,32 @@ const Sidebar = ({ open, setOpen }) => {
           icon: <Group />,
           path: "/roles",
         },
+        {
+          id: "page",
+          title: "Page",
+          icon: <Group />,
+          path: "/pages",
+        },
+      ],
+    },
+    {
+      id: "projects",
+      title: "Projects",
+      icon: <People />,
+      // path: "/user",
+      subItems: [
+        {
+          id: "project",
+          title: "Projects",
+          icon: <Group />,
+          path: "/projects",
+        },
+        {
+          id: "epics",
+          title: "Epic",
+          icon: <Group />,
+          path: "/epics",
+        },
       ],
     },
     {

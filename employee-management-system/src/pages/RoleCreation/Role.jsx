@@ -81,14 +81,7 @@ export const Role = () => {
         )}
       </Paper> */}
       <div>
-        <RoleTable
-          sx={{
-            flex: "1 1 auto",
-            height: "calc(100vh - 140px)",
-            maxHeight: "calc(100vh - 140px)",
-            overflow: "auto",
-          }}
-        />
+        <RoleTable />
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
-import Box from "@mui/material/Box";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import CustomButton from "../../UI/Button/CustomButton";
 import WithLayout from "../../components/layout/WithLayout";
-import ProjectTable from "../../datatables/ProjectTable";
+import EpicTable from "../../datatables/EpicTable";
+import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
+import CustomButton from "../../UI/Button/CustomButton";
 
-const Projects = () => {
+const Epic = () => {
   const navigate = useNavigate();
   const handelClick = () => {
     navigate("/createUpdateProject");
@@ -27,9 +27,9 @@ const Projects = () => {
         </Box>
       </Box>
       <div>
-        <ProjectTable />
+        <EpicTable />
       </div>
     </div>
   );
 };
-export default WithLayout(Projects);
+export default WithLayout(Epic);

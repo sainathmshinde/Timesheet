@@ -67,12 +67,17 @@ const RoleCreateUpdate = () => {
     e.preventDefault();
 
     try {
+      const payload = {
+        ...roleData,
+        statuss: selectedOptions,
+        roleId: roleId || "",
+      };
       if (roleId) {
         const updatedRoleData = { ...roleData, roleId: roleId || "" };
         console.log("updatedRoleData", updatedRoleData);
-        await axios.put(`http://localhost:9090/role/v1`, updatedRoleData);
+        await axios.put(`http://localhost:9090/role/v1`, payload);
       } else {
-        await axios.post(`http://localhost:9090/role/v1`, roleData);
+        await axios.post(`http://localhost:9090/role/v1`, payload);
       }
 
       console.log("Form Submitted:", roleData);
@@ -84,10 +89,10 @@ const RoleCreateUpdate = () => {
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ mt: 5, p: 3, border: "1px solid #ccc", borderRadius: 2 }}>
-        <Typography variant="h5" gutterBottom>
-          {roleId ? "Edit Role" : "Create Role"}
-        </Typography>
+      <Typography variant="h5" gutterBottom>
+        {roleId ? "Edit Role" : "Create Role"}
+      </Typography>
+      <Box sx={{ p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
         <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
@@ -113,19 +118,6 @@ const RoleCreateUpdate = () => {
             label="Status"
             name="status"
             value={roleData.status}
-            onChange={handleChange}
-            margin="normal"
-            required
-          >
-            <MenuItem value="ACTIVE">Active</MenuItem>
-            <MenuItem value="INACTIVE">Inactive</MenuItem>
-          </TextField>
-          <TextField
-            fullWidth
-            select
-            label="Statuss"
-            name="statuss"
-            value={roleData.statuss}
             onChange={handleChange}
             margin="normal"
             required
