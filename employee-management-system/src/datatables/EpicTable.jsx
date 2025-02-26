@@ -20,6 +20,7 @@ export default function EpicTable() {
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [totalRecords, setTotalRecords] = useState(0);
 
   const navigate = useNavigate();
 
@@ -41,6 +42,9 @@ ${page + 1}&recordsPerPage=${rowsPerPage}`
           })
         );
         setEpicData(transformedData);
+        setTotalRecords(
+          response.data.data.totalRecords || transformedData.length
+        );
       } else {
         setError("Invalid API response structure.");
       }
@@ -127,7 +131,7 @@ ${page + 1}&recordsPerPage=${rowsPerPage}`
             <TablePagination
               rowsPerPageOptions={[10, 25, 100]}
               component="div"
-              count={epicData.length}
+              count={totalRecords}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}

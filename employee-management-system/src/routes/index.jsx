@@ -75,11 +75,11 @@ const routes = [
     path: "/createUpdateEpic",
     component: <EpicCreateUpdate />,
   },
-  {
-    exact: true,
-    path: "/createUpdateEpic/:epicId",
-    component: <EpicCreateUpdate />,
-  },
+  // {
+  //   exact: true,
+  //   path: "/createUpdateEpic/:epicId",
+  //   component: <EpicCreateUpdate />,
+  // },
 ];
 
 export default routes;

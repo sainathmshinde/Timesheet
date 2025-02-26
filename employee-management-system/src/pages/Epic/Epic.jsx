@@ -8,7 +8,7 @@ import CustomButton from "../../UI/Button/CustomButton";
 const Epic = () => {
   const navigate = useNavigate();
   const handelClick = () => {
-    navigate("/createUpdateProject");
+    navigate("/createUpdateEpic");
   };
   return (
     <div sx={{ width: "100%", overflow: "hidden" }}>
@@ -20,10 +20,10 @@ const Epic = () => {
         }}
       >
         <Box>
-          <h1>Projects</h1>
+          <h1>Epics</h1>
         </Box>
         <Box>
-          <CustomButton label="Create Project" onClick={handelClick} />
+          <CustomButton label="Create Epic" onClick={handelClick} />
         </Box>
       </Box>
       <div>
