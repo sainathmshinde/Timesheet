@@ -109,15 +109,162 @@ const Sidebar = ({ open, setOpen }) => {
       icon: <Settings />,
       path: "/about",
 
-      // subItems: [
-      //   {
-      //     id: "security",
-      //     title: "Security",
-      //     path: "/about",
+      subItems: [
+        {
+          id: "security",
+          title: "Security",
+          path: "/about",
 
-      //     icon: <Security />,
-      //   },
-      // ],
+          icon: <Security />,
+        },
+      ],
+    },
+    {
+      id: "dashboard",
+      title: "Dashboard",
+      icon: <Dashboard />,
+      path: "/",
+    },
+    {
+      id: "users",
+      title: "Users",
+      icon: <People />,
+      // path: "/user",
+      subItems: [
+        {
+          id: "profile",
+          title: "Profile",
+          path: "/user",
+
+          icon: <Person />,
+        },
+        {
+          id: "groups",
+          title: "Groups",
+          icon: <Group />,
+          path: "/about",
+        },
+        {
+          id: "role",
+          title: "Roles",
+          icon: <Group />,
+          path: "/roles",
+        },
+      ],
+    },
+    {
+      id: "settings",
+      title: "Settings",
+      icon: <Settings />,
+      path: "/about",
+
+      subItems: [
+        {
+          id: "security",
+          title: "Security",
+          path: "/about",
+
+          icon: <Security />,
+        },
+      ],
+    },
+    {
+      id: "dashboard",
+      title: "Dashboard",
+      icon: <Dashboard />,
+      path: "/",
+    },
+    {
+      id: "users",
+      title: "Users",
+      icon: <People />,
+      // path: "/user",
+      subItems: [
+        {
+          id: "profile",
+          title: "Profile",
+          path: "/user",
+
+          icon: <Person />,
+        },
+        {
+          id: "groups",
+          title: "Groups",
+          icon: <Group />,
+          path: "/about",
+        },
+        {
+          id: "role",
+          title: "Roles",
+          icon: <Group />,
+          path: "/roles",
+        },
+      ],
+    },
+    {
+      id: "settings",
+      title: "Settings",
+      icon: <Settings />,
+      path: "/about",
+
+      subItems: [
+        {
+          id: "security",
+          title: "Security",
+          path: "/about",
+
+          icon: <Security />,
+        },
+      ],
+    },
+    {
+      id: "dashboard",
+      title: "Dashboard",
+      icon: <Dashboard />,
+      path: "/",
+    },
+    {
+      id: "users",
+      title: "Users",
+      icon: <People />,
+      // path: "/user",
+      subItems: [
+        {
+          id: "profile",
+          title: "Profile",
+          path: "/user",
+
+          icon: <Person />,
+        },
+        {
+          id: "groups",
+          title: "Groups",
+          icon: <Group />,
+          path: "/about",
+        },
+        {
+          id: "role",
+          title: "Roles",
+          icon: <Group />,
+          path: "/roles",
+        },
+      ],
+    },
+    {
+      id: "settings",
+      title: "Settings",
+      icon: <Settings />,
+      path: "/about",
+
+      subItems: [
+        {
+          id: "security",
+          title: "Security",
+          path: "/about",
+
+          icon: <Security />,
+        },
+      ],
     },
     {
       id: "mode",
@@ -185,7 +332,17 @@ const Sidebar = ({ open, setOpen }) => {
     <Box
       flex={1}
       // p={2}
-      sx={{ overflow: "auto", display: { xs: "none", sm: "block" } }}
+      sx={{
+        overflow: "auto",
+        display: { xs: "none", sm: "block" },
+        // Make the sidebar fixed
+        top: 0, // Align at the top of the screen
+        left: 0, // Align at the left of the screen
+        height: "100vh",
+        width: "250px",
+        // borderRight: "0.5px solid gray",
+        boxShadow: 5,
+      }}
     >
       <List>{menuItems.map(renderMenuItem)}</List>
     </Box>

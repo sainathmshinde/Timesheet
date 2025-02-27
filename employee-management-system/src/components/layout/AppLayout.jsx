@@ -11,20 +11,21 @@ const AppAppLayout = ({ children }) => {
     setOpen(!open);
   };
   return (
-    <Box>
+    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+      {/* Navbar at the Top */}
       <Navbar open={open} />
-      <Stack direction="row" spacing={0} justifyContent="space-between">
-        <Sidebar open={open} setOpen={setOpen} />
-        <Box
-          bgcolor=""
-          flex={6}
-          p={6}
-          sx={{ width: "100%", overflow: "hidden" }}
-        >
-          <main> {children}</main>
+
+      {/* Main Content with Sidebar and Content */}
+      <Stack direction="row" sx={{ flexGrow: 1, height: "100%" }}>
+        {/* Sidebar (Fixed Width) */}
+        <Box sx={{ width: 240, flexShrink: 0 }}>
+          <Sidebar open={open} setOpen={setOpen} />
         </Box>
 
-        {/* <Rightbar /> */}
+        {/* Main Content (Takes Remaining Space) */}
+        <Box sx={{ flexGrow: 1, p: 3, overflow: "auto" }}>
+          <main>{children}</main>
+        </Box>
       </Stack>
     </Box>
   );

@@ -12,7 +12,9 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import MultiSelectDropdown from "../../UI/MultiSelect";
 
-const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+const statusOptions = ["Active", "Inactive", "Pending", "Suspended"];
+const courseOptions = ["Math", "Science", "History", "English"];
+const departmentOptions = ["HR", "Finance", "Engineering", "Marketing"];
 
 const RoleCreateUpdate = () => {
   const [roleData, setRoleData] = useState({
@@ -21,8 +23,9 @@ const RoleCreateUpdate = () => {
     status: "",
     roleId: "",
     statuss: [],
+    courses: [],
+    departments: [],
   });
-  const [selectedOptions, setSelectedOptions] = useState([]);
 
   const navigate = useNavigate();
   const { roleId } = useParams();
@@ -48,6 +51,9 @@ const RoleCreateUpdate = () => {
           roleName: role.roleName || "",
           description: role.description || "",
           status: role.status || "",
+          statuss: role.statuss || [],
+          courses: role.courses || [],
+          departments: role.departments || [],
         });
         console.log("response", response);
 
@@ -56,6 +62,11 @@ const RoleCreateUpdate = () => {
     } catch (error) {
       console.error("Error fetching role data:", error);
     }
+  };
+
+  // Universal Handler for ALL Multi-Select Fields
+  const handleMultiSelectChange = (field, selectedValues) => {
+    setRoleData((prev) => ({ ...prev, [field]: selectedValues }));
   };
 
   const handleChange = (e) => {
@@ -127,10 +138,31 @@ const RoleCreateUpdate = () => {
           </TextField>
           <MultiSelectDropdown
             label="Select Status"
-            options={options}
-            selectedValues={selectedOptions}
-            setSelectedValues={setSelectedOptions}
+            options={statusOptions}
+            selectedValues={roleData.statuss}
+            setSelectedValues={(values) =>
+              handleMultiSelectChange("statuss", values)
+            }
           />
+
+          <MultiSelectDropdown
+            label="Select Courses"
+            options={courseOptions}
+            selectedValues={roleData.courses}
+            setSelectedValues={(values) =>
+              handleMultiSelectChange("courses", values)
+            }
+          />
+
+          <MultiSelectDropdown
+            label="Select Departments"
+            options={departmentOptions}
+            selectedValues={roleData.departments}
+            setSelectedValues={(values) =>
+              handleMultiSelectChange("departments", values)
+            }
+          />
+
           <Button
             variant="contained"
             color="primary"
