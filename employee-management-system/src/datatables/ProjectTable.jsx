@@ -69,69 +69,70 @@ export default function ProjectTable() {
   return (
     <div>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        {loading && (
-          <div
-            style={{ display: "flex", justifyContent: "center", padding: 20 }}
-          >
-            <CircularProgress />
-          </div>
-        )}
-        {error && <Alert severity="error">{error}</Alert>}
-
-        {!loading && !error && projectData.length > 0 && (
-          <>
-            <TableContainer sx={{ maxHeight: 440 }}>
-              <Table stickyHeader aria-label="role table">
-                <TableHead>
-                  <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        key={column.id}
-                        style={{ minWidth: column.minWidth }}
-                      >
-                        {column.label}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {projectData
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
-                      <TableRow hover key={row.projectId}>
-                        {columns.map((column) => (
-                          <TableCell key={column.id}>
-                            {column.id === "action" ? (
-                              <Button
-                                onClick={() =>
-                                  navigate(
-                                    `/createUpdateProject/${row.projectId}`
-                                  )
-                                }
-                              >
-                                <EditIcon />
-                              </Button>
-                            ) : (
-                              row[column.id] || "N/A"
-                            )}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[10, 25, 100]}
-              component="div"
-              count={projectData.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </>
-        )}
+        <>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="role table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {loading && (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      padding: 20,
+                    }}
+                  >
+                    <CircularProgress />
+                  </div>
+                )}
+                {error && <Alert severity="error">{error}</Alert>}
+                {projectData
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => (
+                    <TableRow hover key={row.projectId}>
+                      {columns.map((column) => (
+                        <TableCell key={column.id}>
+                          {column.id === "action" ? (
+                            <Button
+                              onClick={() =>
+                                navigate(
+                                  `/createUpdateProject/${row.projectId}`
+                                )
+                              }
+                            >
+                              <EditIcon />
+                            </Button>
+                          ) : (
+                            row[column.id] || "N/A"
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={projectData.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </>
 
         {!loading && !error && projectData.length === 0 && (
           <Alert severity="info" sx={{ margin: 2 }}>

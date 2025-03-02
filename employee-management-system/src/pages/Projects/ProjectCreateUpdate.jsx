@@ -16,6 +16,8 @@ const ProjectCreateUpdate = () => {
     type: "success",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const { projectId } = useParams();
 
@@ -59,6 +61,7 @@ const ProjectCreateUpdate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const payload = {
         ...projectData,
         projectId: projectId || "",
@@ -88,6 +91,8 @@ const ProjectCreateUpdate = () => {
         message: "Error submitting project data",
         type: "error",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -122,6 +127,7 @@ const ProjectCreateUpdate = () => {
             type="submit"
             fullWidth
             sx={{ mt: 2 }}
+            disabled={loading}
           >
             {projectId ? "Update" : "Create"}
           </Button>

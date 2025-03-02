@@ -101,54 +101,11 @@ const Sidebar = ({ open, setOpen }) => {
           icon: <Group />,
           path: "/epics",
         },
-      ],
-    },
-    {
-      id: "settings",
-      title: "Settings",
-      icon: <Settings />,
-      path: "/about",
-
-      subItems: [
         {
-          id: "security",
-          title: "Security",
-          path: "/about",
-
-          icon: <Security />,
-        },
-      ],
-    },
-    {
-      id: "dashboard",
-      title: "Dashboard",
-      icon: <Dashboard />,
-      path: "/",
-    },
-    {
-      id: "users",
-      title: "Users",
-      icon: <People />,
-      // path: "/user",
-      subItems: [
-        {
-          id: "profile",
-          title: "Profile",
-          path: "/user",
-
-          icon: <Person />,
-        },
-        {
-          id: "groups",
-          title: "Groups",
+          id: "sprint",
+          title: "Sprint",
           icon: <Group />,
-          path: "/about",
-        },
-        {
-          id: "role",
-          title: "Roles",
-          icon: <Group />,
-          path: "/roles",
+          path: "/sprintCreateUpdate",
         },
       ],
     },
@@ -168,104 +125,153 @@ const Sidebar = ({ open, setOpen }) => {
         },
       ],
     },
-    {
-      id: "dashboard",
-      title: "Dashboard",
-      icon: <Dashboard />,
-      path: "/",
-    },
-    {
-      id: "users",
-      title: "Users",
-      icon: <People />,
-      // path: "/user",
-      subItems: [
-        {
-          id: "profile",
-          title: "Profile",
-          path: "/user",
+    // {
+    //   id: "dashboard",
+    //   title: "Dashboard",
+    //   icon: <Dashboard />,
+    //   path: "/",
+    // },
+    // {
+    //   id: "users",
+    //   title: "Users",
+    //   icon: <People />,
+    //   // path: "/user",
+    //   subItems: [
+    //     {
+    //       id: "profile",
+    //       title: "Profile",
+    //       path: "/user",
 
-          icon: <Person />,
-        },
-        {
-          id: "groups",
-          title: "Groups",
-          icon: <Group />,
-          path: "/about",
-        },
-        {
-          id: "role",
-          title: "Roles",
-          icon: <Group />,
-          path: "/roles",
-        },
-      ],
-    },
-    {
-      id: "settings",
-      title: "Settings",
-      icon: <Settings />,
-      path: "/about",
+    //       icon: <Person />,
+    //     },
+    //     {
+    //       id: "groups",
+    //       title: "Groups",
+    //       icon: <Group />,
+    //       path: "/about",
+    //     },
+    //     {
+    //       id: "role",
+    //       title: "Roles",
+    //       icon: <Group />,
+    //       path: "/roles",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "settings",
+    //   title: "Settings",
+    //   icon: <Settings />,
+    //   path: "/about",
 
-      subItems: [
-        {
-          id: "security",
-          title: "Security",
-          path: "/about",
+    //   subItems: [
+    //     {
+    //       id: "security",
+    //       title: "Security",
+    //       path: "/about",
 
-          icon: <Security />,
-        },
-      ],
-    },
-    {
-      id: "dashboard",
-      title: "Dashboard",
-      icon: <Dashboard />,
-      path: "/",
-    },
-    {
-      id: "users",
-      title: "Users",
-      icon: <People />,
-      // path: "/user",
-      subItems: [
-        {
-          id: "profile",
-          title: "Profile",
-          path: "/user",
+    //       icon: <Security />,
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "dashboard",
+    //   title: "Dashboard",
+    //   icon: <Dashboard />,
+    //   path: "/",
+    // },
+    // {
+    //   id: "users",
+    //   title: "Users",
+    //   icon: <People />,
+    //   // path: "/user",
+    //   subItems: [
+    //     {
+    //       id: "profile",
+    //       title: "Profile",
+    //       path: "/user",
 
-          icon: <Person />,
-        },
-        {
-          id: "groups",
-          title: "Groups",
-          icon: <Group />,
-          path: "/about",
-        },
-        {
-          id: "role",
-          title: "Roles",
-          icon: <Group />,
-          path: "/roles",
-        },
-      ],
-    },
-    {
-      id: "settings",
-      title: "Settings",
-      icon: <Settings />,
-      path: "/about",
+    //       icon: <Person />,
+    //     },
+    //     {
+    //       id: "groups",
+    //       title: "Groups",
+    //       icon: <Group />,
+    //       path: "/about",
+    //     },
+    //     {
+    //       id: "role",
+    //       title: "Roles",
+    //       icon: <Group />,
+    //       path: "/roles",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "settings",
+    //   title: "Settings",
+    //   icon: <Settings />,
+    //   path: "/about",
 
-      subItems: [
-        {
-          id: "security",
-          title: "Security",
-          path: "/about",
+    //   subItems: [
+    //     {
+    //       id: "security",
+    //       title: "Security",
+    //       path: "/about",
 
-          icon: <Security />,
-        },
-      ],
-    },
+    //       icon: <Security />,
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "dashboard",
+    //   title: "Dashboard",
+    //   icon: <Dashboard />,
+    //   path: "/",
+    // },
+    // {
+    //   id: "users",
+    //   title: "Users",
+    //   icon: <People />,
+    //   // path: "/user",
+    //   subItems: [
+    //     {
+    //       id: "profile",
+    //       title: "Profile",
+    //       path: "/user",
+
+    //       icon: <Person />,
+    //     },
+    //     {
+    //       id: "groups",
+    //       title: "Groups",
+    //       icon: <Group />,
+    //       path: "/about",
+    //     },
+    //     {
+    //       id: "role",
+    //       title: "Roles",
+    //       icon: <Group />,
+    //       path: "/roles",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "settings",
+    //   title: "Settings",
+    //   icon: <Settings />,
+    //   path: "/about",
+
+    //   subItems: [
+    //     {
+    //       id: "security",
+    //       title: "Security",
+    //       path: "/about",
+
+    //       icon: <Security />,
+    //     },
+    //   ],
+    // },
     {
       id: "mode",
       icon: <ModeNight />,
