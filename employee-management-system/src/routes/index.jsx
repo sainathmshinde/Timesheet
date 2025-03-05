@@ -9,6 +9,7 @@ import ProjectCreateUpdate from "../pages/Projects/ProjectCreateUpdate";
 import Epic from "../pages/Epic/Epic";
 import EpicCreateUpdate from "../pages/Epic/EpicCreateUpdate";
 import SprintCreateUpdate from "../pages/Sprint/SprintCreateUpdate";
+import Sprint from "../pages/Sprint/Sprint";
 
 const routes = [
   {
@@ -85,6 +86,11 @@ const routes = [
     exact: true,
     path: "/sprintCreateUpdate/:sprintId",
     component: <SprintCreateUpdate />,
+  },
+  {
+    exact: true,
+    path: "/sprint",
+    component: <Sprint />,
   },
   // {
   //   exact: true,

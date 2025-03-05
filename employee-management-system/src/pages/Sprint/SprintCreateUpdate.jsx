@@ -38,31 +38,43 @@ const SprintCreateUpdate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formattedStartDate = `${sprintData.startDate}T00:00:00.000Z`;
+    const formattedEndDate = `${sprintData.endDate}T23:59:59.999Z`;
+    const payload = {
+      name: sprintData.name,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+      sprintStatus: sprintData.sprintStatus,
+      projectId: sprintData.projectId || "",
+    };
     try {
       setLoading(true);
 
       if (sprintId) {
-        // await axios.put(`http://localhost:9090/project/v12`, payload);
+        await axios.put(`http://localhost:9090/sprint/v1`, payload);
         setNotification({
           open: true,
           message: "Project updated successfully!",
           type: "success",
         });
       } else {
-        // await axios.post(`http://localhost:9090/project/v12`, payload);
+        await axios.post(`http://localhost:9090/sprint/v1`, payload);
         setNotification({
           open: true,
-          message: "Project created successfully!",
+          message: "Sprint created successfully!",
           type: "success",
         });
       }
 
       setTimeout(() => navigate("/projects"), 2000);
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error(
+        "Error submitting form:",
+        error.response.data.apiStatus.status
+      );
       setNotification({
         open: true,
-        message: "Error submitting project data",
+        message: error.response.data.apiStatus.status,
         type: "error",
       });
     } finally {

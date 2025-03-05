@@ -105,7 +105,7 @@ const Sidebar = ({ open, setOpen }) => {
           id: "sprint",
           title: "Sprint",
           icon: <Group />,
-          path: "/sprintCreateUpdate",
+          path: "/sprint",
         },
       ],
     },
