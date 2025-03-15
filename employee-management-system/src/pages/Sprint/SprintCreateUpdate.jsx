@@ -139,7 +139,15 @@ const SprintCreateUpdate = () => {
             {sprintId ? "Edit Sprint" : "Create Sprint"}
           </Typography>
         </Box>
-        <Box sx={{ p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
+        <Box
+          sx={{
+            p: 3,
+            borderRadius: 2,
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            bgcolor: "white",
+            mx: "auto",
+          }}
+        >
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth

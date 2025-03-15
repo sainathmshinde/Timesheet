@@ -14,8 +14,12 @@ import {
   Button,
   Collapse,
   IconButton,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { blue } from "@mui/material/colors";
 
 export default function SprintTable() {
   const [sprintData, setSprintData] = useState([]);
@@ -25,7 +29,9 @@ export default function SprintTable() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalRecords, setTotalRecords] = useState(0);
   const [expandedRows, setExpandedRows] = useState({});
+  const [epicData, setEpicData] = useState([]);
 
+  const navigate = useNavigate();
   const fetchSprints = async () => {
     setLoading(true);
     setError("");
@@ -47,9 +53,90 @@ export default function SprintTable() {
       setLoading(false);
     }
   };
+  const taskStatusOptions = [
+    "TO_DO",
+    "IN_PROGRESS",
+    "DEV_COMPLETED",
+    "UAT_COMPLETED",
+    "DEPLOYED",
+    "CLOSED",
+  ];
+
+  const priority = ["LOW", "MEDIUM", "HIGH"];
+
+  const handleStatusChange = async (taskId, newStatus) => {
+    try {
+      await axios.put(`http://localhost:9090/task/v1`, {
+        taskId,
+        status: newStatus,
+      });
+
+      setSprintData((prevData) =>
+        prevData.map((sprint) => ({
+          ...sprint,
+          taskList: sprint.taskList.map((task) =>
+            task.taskId === taskId ? { ...task, status: newStatus } : task
+          ),
+        }))
+      );
+    } catch (error) {
+      console.error("Error updating task status:", error);
+    }
+  };
+  const handlePriorityChange = async (taskId, newPriority) => {
+    try {
+      await axios.put(`http://localhost:9090/task/v1`, {
+        taskId,
+        priority: newPriority,
+      });
+
+      setSprintData((prevData) =>
+        prevData.map((sprint) => ({
+          ...sprint,
+          taskList: sprint.taskList.map((task) =>
+            task.taskId === taskId ? { ...task, priority: newPriority } : task
+          ),
+        }))
+      );
+    } catch (error) {
+      console.error("Error updating priority:", error);
+    }
+  };
+
+  const handleEpicChange = async (taskId, newepicName) => {
+    try {
+      await axios.put(`http://localhost:9090/task/v1`, {
+        taskId,
+        epicName: newepicName,
+      });
+
+      setSprintData((prevData) =>
+        prevData.map((sprint) => ({
+          ...sprint,
+          taskList: sprint.taskList.map((task) =>
+            task.taskId === taskId ? { ...task, epic: newepicName } : task
+          ),
+        }))
+      );
+    } catch (error) {
+      console.error("Error updating priority:", error);
+    }
+  };
+
+  const fetchEpic = async () => {
+    try {
+      const response =
+        await axios.get(`http://localhost:9090/epic/v1?pageNo=1&recordsPerPage=1000
+`);
+      setEpicData(response.data.data.epicResponseDtoListList);
+    } catch (error) {
+    } finally {
+    }
+  };
 
   useEffect(() => {
     fetchSprints();
+    fetchEpic();
   }, [page, rowsPerPage]);
 
   const handleExpandRow = (id) => {
@@ -63,6 +150,11 @@ export default function SprintTable() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleTaskClick = (taskId) => {
+    console.log("taskId", taskId);
+    navigate(`/subTaskCreateUpdate/${taskId}`);
   };
 
   return (
@@ -132,11 +224,115 @@ export default function SprintTable() {
                                 sprint.taskList.map((task) => (
                                   <TableRow key={task.taskId}>
                                     <TableCell>{task.taskId}</TableCell>
-                                    <TableCell>{task.taskName}</TableCell>
+                                    <TableCell
+                                      onClick={() =>
+                                        handleTaskClick(task.taskId)
+                                      }
+                                      sx={{
+                                        cursor: "pointer",
+                                        color: blue,
+                                        "&:hover": {
+                                          color: "darkblue",
+                                          backgroundColor: "white",
+                                        },
+                                      }}
+                                    >
+                                      {task.taskName}
+                                    </TableCell>
                                     <TableCell>{task.description}</TableCell>
-                                    <TableCell>{task.status}</TableCell>
-                                    <TableCell>{task.priority}</TableCell>
-                                    <TableCell>{task.epic}</TableCell>
+                                    <TableCell>
+                                      <Select
+                                        value={task.status}
+                                        onChange={(e) =>
+                                          handleStatusChange(
+                                            task.taskId,
+                                            e.target.value
+                                          )
+                                        }
+                                        variant="outlined"
+                                        size="small"
+                                        sx={{
+                                          minWidth: 120,
+                                          fontSize: "0.875rem",
+                                          backgroundColor: "white",
+                                          "& .MuiSelect-select": {
+                                            padding: "4px",
+                                          },
+                                        }}
+                                      >
+                                        {taskStatusOptions.map((status) => (
+                                          <MenuItem
+                                            key={status}
+                                            value={status}
+                                            sx={{ textAlign: "center" }}
+                                          >
+                                            {status}
+                                          </MenuItem>
+                                        ))}
+                                      </Select>
+                                    </TableCell>
+                                    <TableCell>
+                                      <Select
+                                        value={task.priority}
+                                        onChange={(e) =>
+                                          handlePriorityChange(
+                                            task.taskId,
+                                            e.target.value
+                                          )
+                                        }
+                                        variant="outlined"
+                                        size="small"
+                                        sx={{
+                                          minWidth: 120,
+                                          fontSize: "0.875rem",
+                                          backgroundColor: "white",
+                                          "& .MuiSelect-select": {
+                                            padding: "4px",
+                                          },
+                                        }}
+                                      >
+                                        {priority.map((pri) => (
+                                          <MenuItem
+                                            key={pri}
+                                            value={pri}
+                                            sx={{ textAlign: "center" }}
+                                          >
+                                            {pri}
+                                          </MenuItem>
+                                        ))}
+                                      </Select>
+                                    </TableCell>
+                                    <TableCell>
+                                      <Select
+                                        value={task.epic}
+                                        onChange={(e) =>
+                                          handleEpicChange(
+                                            task.taskId,
+                                            e.target.value
+                                          )
+                                        }
+                                        variant="outlined"
+                                        size="small"
+                                        sx={{
+                                          minWidth: 120,
+                                          fontSize: "0.875rem",
+                                          backgroundColor: "white",
+                                          "& .MuiSelect-select": {
+                                            padding: "4px",
+                                          },
+                                        }}
+                                      >
+                                        {epicData.map((epic) => (
+                                          <MenuItem
+                                            key={epic.epicId}
+                                            value={epic.epicName}
+                                            sx={{ textAlign: "center" }}
+                                          >
+                                            {epic.epicName}
+                                          </MenuItem>
+                                        ))}
+                                      </Select>
+                                    </TableCell>
                                     <TableCell>{task.taskType}</TableCell>
                                   </TableRow>
                                 ))

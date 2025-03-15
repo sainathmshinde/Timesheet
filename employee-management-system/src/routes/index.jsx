@@ -10,6 +10,9 @@ import Epic from "../pages/Epic/Epic";
 import EpicCreateUpdate from "../pages/Epic/EpicCreateUpdate";
 import SprintCreateUpdate from "../pages/Sprint/SprintCreateUpdate";
 import Sprint from "../pages/Sprint/Sprint";
+import { comment } from "postcss";
+import { Component } from "react";
+import SubTaskCreateUpdate from "../pages/SubTask/SubTaskCreateUpdate";
 
 const routes = [
   {
@@ -91,6 +94,11 @@ const routes = [
     exact: true,
     path: "/sprint",
     component: <Sprint />,
+  },
+  {
+    exact: true,
+    path: "/subTaskCreateUpdate/:taskId",
+    component: <SubTaskCreateUpdate />,
   },
   // {
   //   exact: true,
