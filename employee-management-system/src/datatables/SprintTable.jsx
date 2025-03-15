@@ -16,10 +16,12 @@ import {
   IconButton,
   Select,
   MenuItem,
+  Tooltip, // Moved Tooltip here to avoid duplicate import
 } from "@mui/material";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { blue } from "@mui/material/colors";
+import AddTaskIcon from "@mui/icons-material/AddTask";
 
 export default function SprintTable() {
   const [sprintData, setSprintData] = useState([]);
@@ -103,23 +105,28 @@ export default function SprintTable() {
     }
   };
 
-  const handleEpicChange = async (taskId, newepicName) => {
+  const handleEpicChange = async (taskId, newEpicId) => {
     try {
       await axios.put(`http://localhost:9090/task/v1`, {
         taskId,
-        epicName: newepicName,
+        epicId: newEpicId,
       });
 
+      const selectedEpic = epicData.find((epic) => epic.epicId === newEpicId);
+      const newEpicName = selectedEpic ? selectedEpic.epicName : "Unknown";
+      console.log("epicName", newEpicName);
       setSprintData((prevData) =>
         prevData.map((sprint) => ({
           ...sprint,
           taskList: sprint.taskList.map((task) =>
-            task.taskId === taskId ? { ...task, epic: newepicName } : task
+            task.taskId === taskId
+              ? { ...task, epicId: newEpicId, epic: newEpicName }
+              : task
           ),
         }))
       );
     } catch (error) {
-      console.error("Error updating priority:", error);
+      console.error("Error updating epic:", error);
     }
   };
 
@@ -199,6 +206,33 @@ export default function SprintTable() {
                       <TableCell>{sprint.endDate}</TableCell>
                       <TableCell>{sprint.sprintStatus}</TableCell>
                       <TableCell>{sprint.projectName}</TableCell>
+                      <TableCell>
+                        <Tooltip title="Add Task" arrow>
+                          <IconButton
+                            sx={{
+                              backgroundColor: "#1976d2",
+                              color: "#fff",
+                              borderRadius: "50%",
+                              width: 40,
+                              height: 40,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              boxShadow: 2,
+                              "&:hover": {
+                                backgroundColor: "#1565c0",
+                                transform: "scale(1.1)",
+                                transition: "0.2s ease-in-out",
+                              },
+                            }}
+                            onClick={() =>
+                              console.log("Add Task button clicked!")
+                            }
+                          >
+                            <AddTaskIcon fontSize="medium" />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell colSpan={7} style={{ padding: 0 }}>
@@ -304,11 +338,11 @@ export default function SprintTable() {
                                     </TableCell>
                                     <TableCell>
                                       <Select
-                                        value={task.epic}
+                                        value={task.epicId}
                                         onChange={(e) =>
                                           handleEpicChange(
                                             task.taskId,
-                                            e.target.value
+                                            Number(e.target.value)
                                           )
                                         }
                                         variant="outlined"
@@ -325,14 +359,14 @@ export default function SprintTable() {
                                         {epicData.map((epic) => (
                                           <MenuItem
                                             key={epic.epicId}
-                                            value={epic.epicName}
-                                            sx={{ textAlign: "center" }}
+                                            value={epic.epicId}
                                           >
                                             {epic.epicName}
                                           </MenuItem>
                                         ))}
                                       </Select>
                                     </TableCell>
+
                                     <TableCell>{task.taskType}</TableCell>
                                   </TableRow>
                                 ))
