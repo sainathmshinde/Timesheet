@@ -13,6 +13,7 @@ import Sprint from "../pages/Sprint/Sprint";
 import { comment } from "postcss";
 import { Component } from "react";
 import SubTaskCreateUpdate from "../pages/SubTask/SubTaskCreateUpdate";
+import SubTask from "../pages/SubTask/SubTask";
 
 const routes = [
   {
@@ -99,6 +100,16 @@ const routes = [
     exact: true,
     path: "/subTaskCreateUpdate/:taskId",
     component: <SubTaskCreateUpdate />,
+  },
+  {
+    exact: true,
+    path: "/subTask",
+    component: <SubTask />,
+  },
+  {
+    exact: true,
+    path: "/subTask/:taskId",
+    component: <SubTask />,
   },
   // {
   //   exact: true,

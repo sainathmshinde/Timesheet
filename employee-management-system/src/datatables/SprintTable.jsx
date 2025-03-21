@@ -22,6 +22,10 @@ import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { blue } from "@mui/material/colors";
 import AddTaskIcon from "@mui/icons-material/AddTask";
+import CreateTaskPopup from "../components/CreateTaskPopup";
+import EditIcon from "../components/icons/EditIcon";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import TaskPopup from "../components/TaskPopup";
 
 export default function SprintTable() {
   const [sprintData, setSprintData] = useState([]);
@@ -32,8 +36,40 @@ export default function SprintTable() {
   const [totalRecords, setTotalRecords] = useState(0);
   const [expandedRows, setExpandedRows] = useState({});
   const [epicData, setEpicData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [openTask, setOpenTask] = useState(false);
 
+  const [tasks, setTasks] = useState([]);
+  const [selectedSprint, setSelectedSprint] = useState({
+    id: null,
+    name: "",
+    projectId: null,
+    projectName: "",
+  });
+
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
+
+  const handleEditClick = (taskId) => {
+    setSelectedTaskId(taskId);
+    setOpenTask(true);
+  };
+
+  const handleClose = () => {
+    setOpenTask(false);
+    setSelectedTaskId(null);
+  };
+
+  const handleTaskAdded = (newTask) => {
+    setTasks([...tasks, newTask]);
+  };
   const navigate = useNavigate();
+  useEffect(() => {
+    fetchSprints();
+  }, [page, rowsPerPage]);
+  useEffect(() => {
+    fetchEpic();
+  }, []);
+
   const fetchSprints = async () => {
     setLoading(true);
     setError("");
@@ -141,11 +177,6 @@ export default function SprintTable() {
     }
   };
 
-  useEffect(() => {
-    fetchSprints();
-    fetchEpic();
-  }, [page, rowsPerPage]);
-
   const handleExpandRow = (id) => {
     setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
   };
@@ -161,7 +192,13 @@ export default function SprintTable() {
 
   const handleTaskClick = (taskId) => {
     console.log("taskId", taskId);
-    navigate(`/subTaskCreateUpdate/${taskId}`);
+    navigate(`/subTask/${taskId}`);
+  };
+
+  const handlePopup = (id, name, projectId, projectName) => {
+    // e.preventDefault();
+    setSelectedSprint({ id, name, projectId, projectName });
+    setOpen(true);
   };
 
   return (
@@ -225,13 +262,26 @@ export default function SprintTable() {
                                 transition: "0.2s ease-in-out",
                               },
                             }}
-                            onClick={() =>
-                              console.log("Add Task button clicked!")
+                            onClick={(e) =>
+                              handlePopup(
+                                sprint.id,
+                                sprint.name,
+                                sprint.projectId,
+                                sprint.projectName
+                              )
                             }
                           >
                             <AddTaskIcon fontSize="medium" />
                           </IconButton>
                         </Tooltip>
+                        <CreateTaskPopup
+                          open={open}
+                          handleClose={() => setOpen(false)}
+                          handleTaskAdded={handleTaskAdded}
+                          sprintValues={{
+                            selectedSprint,
+                          }}
+                        />
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -272,6 +322,15 @@ export default function SprintTable() {
                                       }}
                                     >
                                       {task.taskName}
+                                      <IconButton
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleEditClick(task.taskId);
+                                        }}
+                                        sx={{ marginLeft: 1 }}
+                                      >
+                                        <EditOutlinedIcon fontSize="small" />
+                                      </IconButton>
                                     </TableCell>
                                     <TableCell>{task.description}</TableCell>
                                     <TableCell>
@@ -366,7 +425,6 @@ export default function SprintTable() {
                                         ))}
                                       </Select>
                                     </TableCell>
-
                                     <TableCell>{task.taskType}</TableCell>
                                   </TableRow>
                                 ))
@@ -387,6 +445,12 @@ export default function SprintTable() {
               </TableBody>
             </Table>
           </TableContainer>
+          <TaskPopup
+            open={openTask}
+            handleClose={handleClose}
+            taskId={selectedTaskId}
+          />
+
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
