@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+} from "@mui/material";
 import WithLayout from "../../components/layout/WithLayout";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -139,13 +148,36 @@ const EpicCreateUpdate = () => {
             margin="normal"
             required
           >
-            <MenuItem value="">Select a Project</MenuItem>
+            <MenuItem value="" disabled>
+              Select a Project
+            </MenuItem>
             {projectData.map((project) => (
               <MenuItem key={project.projectId} value={project.projectId}>
                 {project.projectName}
               </MenuItem>
             ))}
           </TextField>
+          {/* <FormControl fullWidth>
+            <InputLabel>Select a Project</InputLabel>
+            <Select
+              label="Select Project"
+              name="projectId"
+              value={epicData.projectId}
+              onChange={handleChange}
+              margin="normal"
+              required
+              displayEmpty
+            >
+              <MenuItem value="" disabled>
+                Select a Project
+              </MenuItem>
+              {projectData.map((project) => (
+                <MenuItem key={project.projectId} value={project.projectId}>
+                  {project.projectName}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl> */}
 
           <Button
             variant="contained"

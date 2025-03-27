@@ -13,6 +13,8 @@ const TaskPopup = ({ open, handleClose, taskId }) => {
   const [taskName, setTaskName] = useState("");
   const [taskData, setTaskData] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
   const fetchTask = async (taskId) => {
     const response = await fetch(
       `http://localhost:9090/task/v1?pageNo=1&recordsPerPage=1000&task_id=${taskId}`
@@ -32,6 +34,7 @@ const TaskPopup = ({ open, handleClose, taskId }) => {
 
   const handleSave = async () => {
     try {
+      setLoading(true);
       const response = await axios.put(`http://localhost:9090/task/v1`, {
         name: taskName,
         taskId: taskId,
@@ -41,6 +44,8 @@ const TaskPopup = ({ open, handleClose, taskId }) => {
       handleClose();
     } catch (error) {
       console.error("Error updating task:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,10 +85,20 @@ const TaskPopup = ({ open, handleClose, taskId }) => {
         />
       </DialogContent>
       <DialogActions sx={{ justifyContent: "center" }}>
-        <Button onClick={handleClose} color="secondary" variant="outlined">
+        <Button
+          onClick={handleClose}
+          color="secondary"
+          variant="outlined"
+          disabled={loading}
+        >
           Cancel
         </Button>
-        <Button onClick={handleSave} color="primary" variant="contained">
+        <Button
+          onClick={handleSave}
+          color="primary"
+          variant="contained"
+          disabled={loading}
+        >
           Save
         </Button>
       </DialogActions>
