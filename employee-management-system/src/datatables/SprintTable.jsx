@@ -16,7 +16,7 @@ import {
   IconButton,
   Select,
   MenuItem,
-  Tooltip, // Moved Tooltip here to avoid duplicate import
+  Tooltip,
 } from "@mui/material";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +32,7 @@ export default function SprintTable() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [totalRecords, setTotalRecords] = useState(0);
   const [expandedRows, setExpandedRows] = useState({});
   const [epicData, setEpicData] = useState([]);
@@ -213,7 +213,7 @@ export default function SprintTable() {
         <>
           <TableContainer>
             <Table>
-              <TableHead>
+              <TableHead sx={{ backgroundColor: "#2196f3" }}>
                 <TableRow>
                   <TableCell />
                   <TableCell>ID</TableCell>
@@ -222,6 +222,7 @@ export default function SprintTable() {
                   <TableCell>End Date</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell>Project Name</TableCell>
+                  <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -305,14 +306,18 @@ export default function SprintTable() {
                             </TableHead>
                             <TableBody>
                               {sprint.taskList.length > 0 ? (
-                                sprint.taskList.map((task) => (
+                                sprint.taskList.map((task, index) => (
                                   <TableRow key={task.taskId}>
-                                    <TableCell>{task.taskId}</TableCell>
+                                    <TableCell>{index + 1}</TableCell>
                                     <TableCell
                                       onClick={() =>
                                         handleTaskClick(task.taskId)
                                       }
                                       sx={{
+                                        minWidth: 200,
+                                        maxWidth: 400,
+                                        whiteSpace: "normal",
+                                        wordWrap: "break-word",
                                         cursor: "pointer",
                                         color: blue,
                                         "&:hover": {
@@ -332,7 +337,16 @@ export default function SprintTable() {
                                         <EditOutlinedIcon fontSize="small" />
                                       </IconButton>
                                     </TableCell>
-                                    <TableCell>{task.description}</TableCell>
+                                    <TableCell
+                                      sx={{
+                                        minWidth: 200,
+                                        maxWidth: 400,
+                                        whiteSpace: "normal",
+                                        wordWrap: "break-word",
+                                      }}
+                                    >
+                                      {task.description}
+                                    </TableCell>
                                     <TableCell>
                                       <Select
                                         value={task.status}
@@ -350,6 +364,13 @@ export default function SprintTable() {
                                           backgroundColor: "white",
                                           "& .MuiSelect-select": {
                                             padding: "4px",
+                                          },
+                                          "&:hover": {
+                                            color: "darkblue",
+                                            backgroundColor: "white",
+                                            border: "1px solid blue",
+                                            transition: "all 0.3s ease-in-out",
+                                            cursor: "pointer",
                                           },
                                         }}
                                       >
@@ -382,6 +403,13 @@ export default function SprintTable() {
                                           "& .MuiSelect-select": {
                                             padding: "4px",
                                           },
+                                          "&:hover": {
+                                            color: "darkblue",
+                                            backgroundColor: "white",
+                                            border: "1px solid blue",
+                                            transition: "all 0.3s ease-in-out",
+                                            cursor: "pointer",
+                                          },
                                         }}
                                       >
                                         {priority.map((pri) => (
@@ -412,6 +440,13 @@ export default function SprintTable() {
                                           backgroundColor: "white",
                                           "& .MuiSelect-select": {
                                             padding: "4px",
+                                          },
+                                          "&:hover": {
+                                            color: "darkblue",
+                                            backgroundColor: "white",
+                                            border: "1px solid blue",
+                                            transition: "all 0.3s ease-in-out",
+                                            cursor: "pointer",
                                           },
                                         }}
                                       >
@@ -452,7 +487,7 @@ export default function SprintTable() {
           />
 
           <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
+            rowsPerPageOptions={[5, 10, 15, 25, 100]}
             component="div"
             count={totalRecords}
             rowsPerPage={rowsPerPage}

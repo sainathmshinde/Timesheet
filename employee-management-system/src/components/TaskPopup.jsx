@@ -72,14 +72,13 @@ const TaskPopup = ({ open, handleClose, taskId }) => {
           onChange={(e) => setTaskName(e.target.value)}
           margin="dense"
           variant="outlined"
+          multiline
+          rows={2}
           sx={{
             "& .MuiInputBase-input": {
-              fontSize: "16px",
-              padding: "12px",
-            },
-            "& .MuiOutlinedInput-root": {
-              borderRadius: "8px",
-              width: "100%",
+              fontSize: "14px",
+              padding: "10px",
+              wordWrap: "break-word",
             },
           }}
         />
