@@ -339,7 +339,7 @@ export default function SprintTable() {
                                     </TableCell>
                                     <TableCell
                                       sx={{
-                                        minWidth: 200,
+                                        minWidth: 100,
                                         maxWidth: 400,
                                         whiteSpace: "normal",
                                         wordWrap: "break-word",
