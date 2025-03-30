@@ -10,9 +10,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
-import { Button } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "../components/icons/EditIcon";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 export default function ProjectTable() {
   const [projectData, setProjectData] = useState([]);
@@ -104,15 +105,27 @@ export default function ProjectTable() {
                       {columns.map((column) => (
                         <TableCell key={column.id}>
                           {column.id === "action" ? (
-                            <Button
-                              onClick={() =>
-                                navigate(
-                                  `/createUpdateProject/${row.projectId}`
-                                )
-                              }
-                            >
-                              <EditIcon />
-                            </Button>
+                            // <Button
+                            //   onClick={() =>
+                            //     navigate(
+                            //       `/createUpdateProject/${row.projectId}`
+                            //     )
+                            //   }
+                            // >
+                            //   <EditIcon />
+                            // </Button>
+
+                            <Tooltip title="Edit Project">
+                              <IconButton
+                                onClick={() =>
+                                  navigate(
+                                    `/createUpdateProject/${row.projectId}`
+                                  )
+                                }
+                              >
+                                <ModeEditOutlineOutlinedIcon fontSize="small" />
+                              </IconButton>
+                            </Tooltip>
                           ) : (
                             row[column.id] || "N/A"
                           )}
