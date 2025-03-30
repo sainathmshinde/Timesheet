@@ -59,6 +59,22 @@ export default function UserTable() {
     keepPreviousData: true,
   });
 
+  const fetchDistrict = async () => {
+    const response = await axios.get(
+      "https://masterservice.agrozone.in/master/district/v1?searchTerm=&pageNo=1&recordsPerPage=100&isLiveOnMarketPlace=false"
+    );
+
+    return response.data;
+  };
+
+  const district = useQuery({
+    queryKey: ["district", page, rowsPerPage],
+    queryFn: fetchDistrict,
+    keepPreviousData: true,
+  });
+
+  console.log("district", district?.data?.data?.districts);
+
   const handleDownload = (userId) => {
     queryClient.fetchQuery({
       queryKey: ["downloadTimesheet", userId],

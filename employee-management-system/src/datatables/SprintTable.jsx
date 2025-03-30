@@ -226,7 +226,7 @@ export default function SprintTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {sprintData.map((sprint) => (
+                {sprintData.map((sprint, index) => (
                   <React.Fragment key={sprint.id}>
                     <TableRow>
                       <TableCell>
@@ -238,7 +238,7 @@ export default function SprintTable() {
                           )}
                         </IconButton>
                       </TableCell>
-                      <TableCell>{sprint.id}</TableCell>
+                      <TableCell>{index + 1}</TableCell>
                       <TableCell>{sprint.name}</TableCell>
                       <TableCell>{sprint.startDate}</TableCell>
                       <TableCell>{sprint.endDate}</TableCell>
