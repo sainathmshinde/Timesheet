@@ -182,6 +182,7 @@ const SprintCreateUpdate = () => {
             />
             <Select
               name="sprintStatus"
+              label="Sprint Status"
               value={sprintData.sprintStatus}
               onChange={handleChange}
               variant="outlined"
@@ -201,6 +202,7 @@ const SprintCreateUpdate = () => {
               <InputLabel>Select a project</InputLabel>
               <Select
                 name="projectId"
+                label="Select a project"
                 value={sprintData.projectId || ""}
                 onChange={handleChange}
                 variant="outlined"

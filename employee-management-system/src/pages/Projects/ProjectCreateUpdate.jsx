@@ -30,7 +30,7 @@ const ProjectCreateUpdate = () => {
   const fetchProjects = async (projectId) => {
     try {
       const response = await axios.get(
-        `http://localhost:9090/role/v1?pageNo=1&recordsPerPage=1000&role_id=${projectId}`
+        `http://localhost:9090/project/v1?pageNo=1&recordsPerPage=1000&project_id=${projectId}`
       );
 
       if (
@@ -39,8 +39,8 @@ const ProjectCreateUpdate = () => {
       ) {
         const project = response.data.data.projectResponseDtoList[0];
         setProjectData({
-          projectName: project.roleName || "",
-          description: project.description || "",
+          projectName: project.projectName || "",
+          description: project.projectDescription || "",
         });
       }
     } catch (error) {

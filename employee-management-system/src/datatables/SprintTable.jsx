@@ -213,16 +213,16 @@ export default function SprintTable() {
         <>
           <TableContainer>
             <Table>
-              <TableHead sx={{ backgroundColor: "#2196f3" }}>
-                <TableRow>
+              <TableHead sx={{ backgroundColor: "#2196f3", color: "white" }}>
+                <TableRow sx={{ color: "white" }}>
                   <TableCell />
-                  <TableCell>ID</TableCell>
-                  <TableCell>Sprint Name</TableCell>
-                  <TableCell>Start Date</TableCell>
-                  <TableCell>End Date</TableCell>
-                  <TableCell>Status</TableCell>
-                  <TableCell>Project Name</TableCell>
-                  <TableCell>Action</TableCell>
+                  <TableCell sx={{ color: "white" }}>ID</TableCell>
+                  <TableCell sx={{ color: "white" }}>Sprint Name</TableCell>
+                  <TableCell sx={{ color: "white" }}>Start Date</TableCell>
+                  <TableCell sx={{ color: "white" }}>End Date</TableCell>
+                  <TableCell sx={{ color: "white" }}>Status</TableCell>
+                  <TableCell sx={{ color: "white" }}>Project Name</TableCell>
+                  <TableCell sx={{ color: "white" }}>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
